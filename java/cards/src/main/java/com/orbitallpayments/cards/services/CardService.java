@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.orbitallpayments.cards.domains.Card;
@@ -50,6 +53,10 @@ public class CardService {
 			cardRepository.delete(cardDel.get());
 			return true;
 		}
+	}
+	
+	public Page<Card> paginationAndSorting() {
+		return cardRepository.findAll(PageRequest.of(0, 3, Sort.by(Sort.Direction.ASC, "customerName")));
 	}
 	
 }
